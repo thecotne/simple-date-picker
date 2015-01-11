@@ -1,4 +1,6 @@
+/*global jQuery:false */
 (function($) {
+	'use strict';
 	$.fn.simpleDatePicker = function(opts) {
 		var simpleDatePicker = {
 			wrapper: null,
@@ -17,40 +19,40 @@
 
 				this.populateYearOptions();
 
-				this.year.on("change", $.proxy(this.change, this));
-				this.month.on("change", $.proxy(this.change, this));
-				this.day.on("change", $.proxy(this.change, this));
+				this.year.on('change', $.proxy(this.change, this));
+				this.month.on('change', $.proxy(this.change, this));
+				this.day.on('change', $.proxy(this.change, this));
 			},
 			parseFromDateInput: function(){
-				var valArr = date.val().split('-');
+				var valArr = this.date.val().split('-');
 				if (valArr.length == 3) {
-					valArr = $.map(valArr, function(val, i){
-						var val = parseInt(val);
+					valArr = $.map(valArr, function(val){
+						val = parseInt(val);
 						return val > 0 ? val : -1;
 					});
 				} else {
 					valArr = [-1,-1,-1];
-					date.val('');
+					this.date.val('');
 				}
 				this.year.val(valArr[0]);
 				this.year.val(valArr[1]);
 				this.year.val(valArr[2]);
 			},
-			change: function(e){
+			change: function(){
 				if (parseInt(this.year.val()) > 0) {
-					this.month.removeAttr("disabled");
+					this.month.removeAttr('disabled');
 				}else{
 					this.month.val(-1);
-					this.month.attr("disabled","disabled");
+					this.month.attr('disabled','disabled');
 				}
 				if (parseInt(this.month.val()) > 0) {
-					this.day.removeAttr("disabled");
+					this.day.removeAttr('disabled');
 					if (this.day.val() == -1) {
 						this.populateDayOptions();
-					};
+					}
 				}else{
 					this.day.val(-1);
-					this.day.attr("disabled","disabled");
+					this.day.attr('disabled','disabled');
 				}
 				// debugger;
 				if (parseInt(this.day.val()) > 0) {
@@ -60,21 +62,19 @@
 				}
 			},
 			formatedDate: function(){
-				return ''+this.pad(this.year.val(), 4)
-				'-'+this.pad(this.month.val(), 2)
-				'-'+this.pad(this.day.val(), 2);
+				return this.pad(this.year.val(), 4)+'-'+this.pad(this.month.val(), 2)+'-'+this.pad(this.day.val(), 2);
 			},
 			populateDayOptions: function(){
 				var days = this.daysInMonth(this.year.val(), this.month.val());
 				this.day.find('option:not([value="-1"])').remove();
-				$(this.day).append($.map(this.arrayRange(days), function(val, i){
+				$(this.day).append($.map(this.arrayRange(days), function(val){
 					return $('<option />').val(val).text(val);
 				}));
 			},
 			populateYearOptions: function(){
 				var from = this.opts.year - this.opts.minAge;
 				var to = from - this.opts.maxAge;
-				$(this.year).append($.map(this.arrayRange(to, from).reverse(), function(val, i){
+				$(this.year).append($.map(this.arrayRange(to, from).reverse(), function(val){
 					return $('<option />').val(val).text(val);
 				}));
 			},
@@ -99,7 +99,7 @@
 				return new Date(year, month, 0).getDate();
 			},
 			pad: function (num, size) {
-				var s = "000000000" + num;
+				var s = '000000000' + num;
 				return s.substr(s.length-size);
 			}
 		};
@@ -116,5 +116,5 @@
 			instance.init(this,opts);
 			return instance;
 		}
-	}
+	};
 })(jQuery);
