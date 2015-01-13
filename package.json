@@ -1,7 +1,7 @@
 {
   "name": "simple-date-picker",
   "version": "0.0.1",
-  "description": "",
+  "description": "simple jquery plugin to practice modern workflow",
   "main": "simple-date-picker.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
