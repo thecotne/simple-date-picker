@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/thecotne/simple-date-picker",
   "devDependencies": {
+    "bootstrap": "^3.3.1",
     "gulp": "^3.8.10",
     "gulp-jasmine": "^2.0.0",
     "jasmine": "^2.1.1",
