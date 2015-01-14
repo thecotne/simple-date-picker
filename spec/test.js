@@ -25,3 +25,19 @@ describe("method pad", function() {
 		expect(pad(11,5)).toBe('00011');
 	});
 });
+
+describe("method daysInMonth", function() {
+	var daysInMonth = $('<div />').simpleDatePicker().data('simpleDatePicker').daysInMonth;
+	it("does not explode", function() {
+		expect(daysInMonth).not.toThrow();
+	});
+	it("2015 February to have 28 days", function() {
+		expect(daysInMonth(2015,2)).toBe(28);
+	});
+	it("2015 March to have 31 days", function() {
+		expect(daysInMonth(2015,3)).toBe(31);
+	});
+	it("2015 September to have 30 days", function() {
+		expect(daysInMonth(2015,9)).toBe(30);
+	});
+});
